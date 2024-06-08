@@ -104,6 +104,7 @@ export const DOWNLOAD_SORT = [
   { id: 'csv', name: 'CSV' },
   { id: 'json', name: 'JSON' },
   { id: 'txt', name: 'TXT' },
+  { id: 'pdf', name: 'PDF' },
 ];
 
 export const DASHBOARD_LIMIT = '10';

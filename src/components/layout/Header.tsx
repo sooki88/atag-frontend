@@ -17,15 +17,21 @@ export default function Header() {
   const loginRequiredPages = [PATH.DASHBOARD, PATH.CREATE_URL, PATH.CREATE_IMAGE, PATH.MYPAGE, PATH.MYPAGE_PAYMENT];
   // 추후 고객센터 공개 사용자 범위 확인 후 수정할 예정
 
-  useEffect(() => {
-    const token = localStorage.getItem('token');
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    setUser(null);
+    router.push(PATH.LOGIN);
+  };
 
-    if (!token && loginRequiredPages.includes(pathname)) {
-      router.push(PATH.LOGIN);
-    } else if (token) {
-      fetchUserInfo(token);
+  const handleClick = (path: string) => {
+    if (path === PATH.DASHBOARD && pathname === PATH.DASHBOARD) {
+      window.location.reload();
+    } else {
+      router.replace(path);
     }
-  }, [pathname]);
+  };
+
+  const last_menu_num = HEADER_MENU.length - 1;
 
   const fetchUserInfo = async (token: string) => {
     try {
@@ -48,21 +54,23 @@ export default function Header() {
     }
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem('token');
-    setUser(null);
-    router.push(PATH.LOGIN);
-  };
+  const getUserInfo = () => {
+    const token = localStorage.getItem('token');
 
-  const handleClick = (path: string) => {
-    if (path === PATH.DASHBOARD && pathname === PATH.DASHBOARD) {
-      window.location.reload();
-    } else {
-      router.replace(path);
+    if (!token && loginRequiredPages.includes(pathname)) {
+      router.push(PATH.LOGIN);
+    } else if (token) {
+      fetchUserInfo(token);
     }
   };
 
-  const last_menu_num = HEADER_MENU.length - 1;
+  useEffect(() => {
+    getUserInfo();
+  }, [pathname]);
+
+  useEffect(() => {
+    getUserInfo();
+  }, []);
 
   return (
     <header className="sticky top-0 right-0 left-0 flex items-center justify-center h-63 z-sticky bg-white shadow-lg">
