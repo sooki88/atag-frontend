@@ -3,10 +3,10 @@
 import PostIdTable from '@/components/main/dashboard/PostIdTable';
 import PostIdTitle from '@/components/main/dashboard/PostIdTitle';
 import RequestExpertForm from '@/components/main/dashboard/RequestExpertForm';
-import { DashbaordSortType, PostType, WorkType } from '@/types/common';
+import { PostType, WorkType } from '@/types/common';
 import { fetchWithInterceptor } from '@/utils/fetchWithInterceptor';
 import { API_ROUTE } from '@/utils/routes';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 export default function PostId() {
