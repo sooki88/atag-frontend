@@ -17,7 +17,7 @@ export default function Header() {
   const loginRequiredPages = [PATH.DASHBOARD, PATH.CREATE_URL, PATH.CREATE_IMAGE, PATH.MYPAGE, PATH.MYPAGE_PAYMENT];
   // 추후 고객센터 공개 사용자 범위 확인 후 수정할 예정
 
-  useEffect(() => {
+  const getUseInfo = () => {
     const token = localStorage.getItem('token');
 
     if (!token && loginRequiredPages.includes(pathname)) {
@@ -25,7 +25,15 @@ export default function Header() {
     } else if (token) {
       fetchUserInfo(token);
     }
+  };
+
+  useEffect(() => {
+    getUseInfo();
   }, [pathname]);
+
+  useEffect(() => {
+    getUseInfo();
+  }, []);
 
   const fetchUserInfo = async (token: string) => {
     try {
