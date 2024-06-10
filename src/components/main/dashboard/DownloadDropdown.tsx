@@ -13,7 +13,7 @@ interface DonwloadDropdownProps {
 
 export default function DownloadDropdown({ selectedWorks, disabled }: DonwloadDropdownProps) {
   const [showDropDown, setShowDropDown] = useState(false);
-  const [showPdfPreview, setShowPdfPreview] = useState(true);
+  const [showPdfPreview, setShowPdfPreview] = useState(false);
 
   const { sort } = useContext(DashboardContext);
 

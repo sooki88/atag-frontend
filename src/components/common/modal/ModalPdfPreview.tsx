@@ -16,20 +16,6 @@ export default function ModalPdfPreview({ sortId, selectedWorks, onClose }: Moda
 
   const pdfTitle = getResultDetailTitle(sortId, true, false);
 
-  // const options = {
-  //   filename: pdfTitle?.title,
-  //   resolution: Resolution.HIGH,
-  //   page: {
-  //     margin: Margin.NONE,
-  //     format: 'A4',
-  //     orientation: 'portrait', // landscape 가능
-  //   },
-  //   canvas: {
-  //     mimeType: 'image/jpeg', // 기본값(성능 굿) 추가로 'image/png'도 가능
-  //     qualityRatio: 1,
-  //   },
-  // };
-
   const handleClick = () => {
     generatePDF(pdfRef, { filename: pdfTitle?.title, canvas: { mimeType: 'image/jpeg' } });
     onClose();
@@ -40,7 +26,6 @@ export default function ModalPdfPreview({ sortId, selectedWorks, onClose }: Moda
       onClick={onClose}
       className="fixed inset-0 flex justify-center items-center h-full w-full bg-overlay z-overlay">
       <div className="flex flex-col gap-16 w-420 h-594 p-24 bg-white overflow-hidden text-16">
-        {/* <div className="text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl max-w-full overflow-hidden"> */}
         <div ref={pdfRef}>
           <h1 className="text-28">{pdfTitle?.title}</h1>
           <div className="flex flex-col">
@@ -48,6 +33,7 @@ export default function ModalPdfPreview({ sortId, selectedWorks, onClose }: Moda
               return (
                 <div key={work.id} className="flex">
                   <img src={work.image} alt="work.id" className="w-80 h-80" />
+                  {/* 이미지가 modal에서는 보이는데 다운로드한 pdf파일에서는 안보이는 에러 */}
                 </div>
               );
             })}
