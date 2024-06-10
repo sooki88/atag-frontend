@@ -95,6 +95,9 @@ export const ERROR_MESSAGE = {
   KEYWORDS_LENGTH: '10자 이내로 입력해 주세요.',
   KEYWORDS_COUNT: '키워드는 3개까지 입력할 수 있어요.',
   OPINION_EMAIL_REGEX: '이메일을 제대로 입력했는지 확인해주세요.',
+  UPLOAD_FILE_SIZE: '파일 크기가 50MB를 초과합니다.',
+  UPLOAD_FILE_FORMAT: '파일 형식은  JPEF, PNG, GIF, WEBP만 가능합니다.',
+  UPLOAD_FILE_DUPLICATION: '이미 업로드된 중복 파일입니다.',
 };
 
 export const DASHBOARD_SORT = [

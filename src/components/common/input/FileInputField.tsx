@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import React, { useState } from 'react';
 import { PreviewImageItemType } from '@/types/common';
+import { ERROR_MESSAGE } from '@/utils/constants';
 
 interface FileInputFieldProps {
   previewImages: PreviewImageItemType[];
@@ -45,13 +46,22 @@ export default function FileInputField({
 
       if (!alloewedImageTypes.includes(type)) {
         setUploading(false);
-        setToastMessage('파일 형식은  JPEF, PNG, GIP, WEBP만 가능합니다.');
+        setToastMessage(ERROR_MESSAGE.UPLOAD_FILE_FORMAT);
         return;
       }
 
       if (byteSize > 50 * 1024 * 1024) {
         setUploading(false);
-        setToastMessage('파일 크기가 50MB를 초과합니다.');
+        setToastMessage(ERROR_MESSAGE.UPLOAD_FILE_SIZE);
+        return;
+      }
+
+      const findDuplicatedImage = previewImages.find((image) => image.name === name);
+
+      // 중복된 파일이 있는지 체크
+      if (findDuplicatedImage) {
+        setUploading(false);
+        setToastMessage(ERROR_MESSAGE.UPLOAD_FILE_DUPLICATION);
         return;
       }
 
@@ -65,9 +75,11 @@ export default function FileInputField({
           alt: '',
           language: '한국어',
           keywords: [],
+          tone: 'informal',
           size: sizeInKB,
           file,
         });
+
         if (newPreviewInfos.length === files.length) {
           // 이미지 정보를 모두 수집한 후에 state를 업데이트합니다.
           setPreviewImages((prev) => [...prev, ...newPreviewInfos]);
